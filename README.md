@@ -15,9 +15,11 @@ Set up a Codee Formatter & Analyser on Linux and Windows runners.
 
 ## Usage
 
+One can use this action in the following way to check that `codee format` does not change source code:
+
 ```yaml
 jobs:
-  test:
+  format:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -25,10 +27,16 @@ jobs:
         os: [ubuntu-latest, windows-latest, ubuntu-24.04-arm]
 
     steps:
-      - uses: foxtran/setup-codee@v1
+    - uses: actions/checkout@v4
+    - uses: foxtran/setup-codee@v1
 
-      - run: |
-          codee format --help
+    - name: Run Fortran formatter
+      run: |
+        codee format . --verbose
+
+    - name: Check for uncommitted changes
+      run: |
+        git diff --exit-code
 ```
 
 
