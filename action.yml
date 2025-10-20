@@ -6,7 +6,7 @@ inputs:
   version:
     description: "Version of Codee"
     required: false
-    default: 2025.3.5
+    default: 2025.3.8
 
 runs:
   using: composite
